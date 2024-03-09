@@ -1,9 +1,9 @@
-const express = require('express');
-const app = express();
-const usersRouter = require('./users.js');
+var express = require('express');
+var router = express.Router();
 
-app.use('/users', usersRouter);
-
-app.listen(3000, () => {
-    console.log('Server is running on http://localhost:3000/users/cool/');
+/* GET home page. */
+router.get('/', function(req, res, next) {
+  res.render('index', { title: 'Express' });
 });
+
+module.exports = router;

@@ -1,13 +1,11 @@
-const express = require('express');
-const router = express.Router();
+var express = require('express');
+var router = express.Router();
 
-router.get('/cool', (req, res) => {
-    const language = req.headers['accept-language'];
-    if (language && language.startsWith('uk')) {
-        res.send("Ну, ви і крутий!");
-    } else {
-        res.send("You're so cool!");
-    }
+/* GET users listing. */
+router.get('/', function(req, res, next) {
+  res.send('respond with a resource');
 });
-
+router.get('/cool', function(req, res, next) {
+  res.send('You\'re so cool');
+});
 module.exports = router;
