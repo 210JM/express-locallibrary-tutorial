@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Creating</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+    <script src="/javascripts/sidebar.js"></script>
+
+    <h2>Book Creating</h2>
+
+    <form id="authorForm">
+        <div>
+            <label for="title">Title:</label><br>
+            <input type="text" id="title" name="title" required><br><br>
+        </div>
+        
+        <div>
+            <label for="authorId">Author:</label><br>
+            <select id="authorId" name="authorId" required>
+            </select><br><br>
+        </div>
+        
+        <div>
+            <label for="summary">Summary:</label><br>
+            <textarea id="summary" name="summary" rows="4" cols="50" required></textarea><br><br>
+        </div>
+        
+        <div>
+            <label for="isbn">ISBN:</label><br>
+            <input type="text" id="isbn" name="isbn" value="ISBN13" required><br><br>
+        </div>
+        
+        <div>
+            <div id="genresContainer"></div>
+        </div>
+        
+        <button type="button" id="createBookBtn">Create book</button>
+    </form>
+
+    <script src="/javascripts/book_create.js"></script>
+</body>
+</html>

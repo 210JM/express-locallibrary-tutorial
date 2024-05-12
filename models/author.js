@@ -28,28 +28,28 @@ AuthorSchema.virtual("url").get(function () {
   return `/catalog/author/${this._id}`;
 });
 
-//Adding the author's age
-AuthorSchema.virtual("lifespan").get(function () {
-  if (this.date_of_birth && this.date_of_death) {
-    const birthDate = DateTime.fromJSDate(this.date_of_birth);
-    const deathDate = DateTime.fromJSDate(this.date_of_death);
-    const { years } = deathDate.diff(birthDate, ["years"]).toObject();
-
-    return `${Math.floor(years)} years`; 
-  } else {
-    return "N/A";
-  }
-});
-
 // Virtual for a better Date format
-AuthorSchema.virtual("date_of_birth_formatted").get(function () {
-  const birth_formatted = this.date_of_birth ? DateTime.fromJSDate(this.date_of_birth).toLocaleString(DateTime.DATE_MED) : 'N/A'; // Using const
-  return birth_formatted;
+
+AuthorSchema.virtual("lifespan").get(function () {
+  let lifespan = "";
+  lifespan = this.date_of_birth ? DateTime.fromJSDate(this.date_of_birth).toLocaleString(DateTime.DATE_MED) : 'N/A';
+  lifespan += " - ";
+  lifespan += this.date_of_death ? DateTime.fromJSDate(this.date_of_death).toLocaleString(DateTime.DATE_MED) : 'N/A';
+
+  return lifespan;
 });
 
-AuthorSchema.virtual("date_of_death_formatted").get(function () {
-  const death_formatted = this.date_of_death ? DateTime.fromJSDate(this.date_of_death).toLocaleString(DateTime.DATE_MED) : 'N/A'; // Using const
-  return death_formatted;
+AuthorSchema.virtual("age").get(function () {
+  let age = "";
+
+  if (this.date_of_birth && this.date_of_death) {
+    age = this.date_of_death.getFullYear() - this.date_of_birth.getFullYear();
+  } else if (this.date_of_birth){
+    age = DateTime.local().year - this.date_of_birth.getFullYear();
+  } else {
+    age = 'N/A';
+  }
+  return age;
 });
 
 // Export model
