@@ -7,7 +7,7 @@ const Book = require("../models/book");
 exports.bookinstance_list = asyncHandler(async (req, res, next) => {
   const allBookInstances = await BookInstance.find().populate("book").exec();
 
-  res.render("bookinstance_list", {
+  res.json({
     title: "Book Instance List",
     bookinstance_list: allBookInstances,
   });
@@ -26,7 +26,7 @@ exports.bookinstance_detail = asyncHandler(async (req, res, next) => {
     return next(err);
   }
 
-  res.render("bookinstance_detail", {
+  res.json({
     title: "Book:",
     bookinstance: bookInstance,
   });
