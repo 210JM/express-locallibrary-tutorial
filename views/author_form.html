@@ -11,20 +11,20 @@
 
     <h2>Author Creating</h2>
 
-    <form id="authorForm">
+    <form id="authorForm" novalidate>
         <label for="first_name">Name:</label><br>
-        <input type="text" id="first_name" name="first_name" required><br><br>
+        <input type="text" id="first_name" name="first_name" required autocomplete="off"><br><br>
         
         <label for="family_name">Family name:</label><br>
-        <input type="text" id="family_name" name="family_name" required><br><br>
+        <input type="text" id="family_name" name="family_name" required autocomplete="off"><br><br>
         
         <label for="date_of_birth">Date of birth:</label><br>
-        <input type="date" id="date_of_birth" name="date_of_birth" required><br><br>
+        <input type="date" id="date_of_birth" name="date_of_birth" required autocomplete="off"><br><br>
         
         <label for="date_of_death">Date of death:</label><br>
-        <input type="date" id="date_of_death" name="date_of_death"><br><br>
+        <input type="date" id="date_of_death" name="date_of_death" autocomplete="off"><br><br>
         
-        <button type="button" id="createAuthorBtn">Create author</button>
+        <button type="submit" id="createAuthorBtn">Create author</button>
     </form>
 
     <script src="/javascripts/author_create.js"></script>

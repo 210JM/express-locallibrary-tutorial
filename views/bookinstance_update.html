@@ -10,16 +10,16 @@
     <script src="/javascripts/sidebar.js"></script>
     <h2>Bookinstance Updating</h2>
 
-    <form id="updateForm">
+    <form id="updateForm" novalidate>
         <label for="book">Book:</label><br>
-        <select id="book" name="book" required>
+        <select id="book" name="book" required autocomplete="off">
         </select><br>
       
         <label for="imprint">Imprint:</label><br>
-        <input type="text" id="imprint" name="imprint" required><br>
+        <input type="text" id="imprint" name="imprint" required autocomplete="off"><br>
       
         <label for="status">Status:</label><br>
-        <select id="status" name="status" required>
+        <select id="status" name="status" required autocomplete="off>
           <option value="Maintenance">Maintenance</option>
           <option value="Available">Available</option>
           <option value="Loaned">Loaned</option>
@@ -27,7 +27,7 @@
         </select><br>
       
         <label for="due_back">Due Back:</label><br>
-        <input type="date" id="due_back" name="due_back" required><br>
+        <input type="date" id="due_back" name="due_back" required autocomplete="off"><br>
       
         <button type="submit">Update bookinstance</button>
     </form>

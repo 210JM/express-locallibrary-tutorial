@@ -9,11 +9,13 @@
 <body>
     <script src="/javascripts/sidebar.js"></script>
     <h2>Genre Creating</h2>
-    <form id="genreForm">
+    
+    <form id="genreForm" novalidate>
         <label for="titleInput">Title:</label><br>
-        <input type="text" id="titleInput" name="titleInput" required><br><br>
+        <input type="text" id="titleInput" name="titleInput" required autocomplete="off"><br><br>
         <button type="submit" id="createGenreBtn">Create genre</button>
     </form>
+    
     <script src="/javascripts/genre_create.js"></script>
 </body>
 </html>

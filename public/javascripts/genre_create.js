@@ -1,22 +1,22 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Функция, которая отправляет POST запрос
-    function postData(url, data) {
-        return fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-        .then(response => response.json())
-        .catch(error => console.error('Error:', error));
-    }
+// Определение функции postData вне обработчика событий
+function postData(url, data) {
+    return fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+   .then(response => response.json())
+   .catch(error => console.error('Error:', error));
+}
 
+document.addEventListener('DOMContentLoaded', async function() {
     // Получаем форму
     const form = document.getElementById('genreForm');
 
     // Обработчик события отправки формы
-    form.addEventListener('submit', function(event) {
+    form.addEventListener('submit', async function(event) {
         event.preventDefault(); // Предотвращаем отправку формы по умолчанию
 
         // Получаем значения полей формы
@@ -28,12 +28,15 @@ document.addEventListener('DOMContentLoaded', function() {
             // Добавьте другие поля формы, если есть
         };
 
-        // Отправляем данные на сервер
-        postData('/catalog/api/genre/create', formData)
-            .then(response => {
-                console.log('Response:', response);
-                window.location.href = '/catalog/genre/' + response.genre._id;
-            });
+        try {
+            // Отправляем данные на сервер
+            const response = await postData('/catalog/api/genre/create', formData);
+
+            console.log('Response:', response);
+            window.location.href = '/catalog/genre/' + response.genre._id;
+        } catch (error) {
+            console.error('Error:', error);
+        }
 
         // Очищаем поля формы после отправки
         form.reset();

@@ -271,26 +271,96 @@ document.addEventListener('DOMContentLoaded', () => {
   //       fetchFormData(); // Fetch and populate form data
   //   });
   // }
-  function showError(message) {
-    // Create toast element
+  document.addEventListener('DOMContentLoaded', () => {
+    fetchBooks();
+});
+
+async function fetchBooks() {
+    try {
+        const response = await fetch('http://localhost:3000/catalog/api/book_list', {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            },
+        });
+
+        const data = await response.json();
+
+        if (data && data.book_list) {
+            displayBooks(data.book_list);
+        } else {
+            showError('No books found');
+        }
+    } catch (error) {
+        showError('Error fetching books');
+    }
+}
+
+function displayBooks(books) {
+    const bookContainer = document.getElementById('bookContainer');
+    bookContainer.innerHTML = '';
+    books.forEach(book => {
+        const bookElement = document.createElement('div');
+        bookElement.classList.add('book');
+
+        const titleElement = document.createElement('div');
+        const titleLink = document.createElement('a');
+        titleElement.appendChild(titleLink);
+        titleLink.textContent = book.title;
+        titleLink.href = `http://localhost:3000/catalog/book/${book._id}`;
+        titleLink.classList.add('book-title-link');
+
+        const authorsElement = document.createElement('div');
+        authorsElement.textContent = `${book.author.first_name} ${book.author.family_name}`;
+        bookElement.appendChild(titleElement);
+        bookElement.appendChild(authorsElement);
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.addEventListener('click', () => deleteBook(book._id));
+        bookElement.appendChild(deleteButton);
+
+        bookContainer.appendChild(bookElement);
+    });
+}
+
+async function deleteBook(id) {
+    try {
+        const response = await fetch(`/catalog/api/book/${id}/delete`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ id: id })
+        });
+
+        if (response.ok) {
+            fetchBooks();
+        } else {
+            console.error('Error deleting book:', response.status);
+            showError(`Error deleting book: ${response.status}`);
+        }
+    } catch (error) {
+        console.error('Error deleting book:', error);
+        showError(`Error deleting book: ${error}`);
+    }
+}
+
+function showError(message) {
     const toast = document.createElement('div');
     toast.className = 'toast';
     toast.textContent = message;
-  
-    // Append toast to body
+
     document.body.appendChild(toast);
-  
-    // Show the toast
     toast.classList.add('show');
-  
-    // Hide the toast after 15 seconds or when clicked
+
     const hideToast = () => {
         toast.classList.remove('show');
         setTimeout(() => {
             document.body.removeChild(toast);
-        }, 500); // Remove from DOM after transition
+        }, 500);
     };
-  
-    setTimeout(hideToast, 15000); // Hide after 15 seconds
+
+    setTimeout(hideToast, 15000);
     toast.addEventListener('click', hideToast);
-  }
+}
